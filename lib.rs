@@ -272,6 +272,13 @@ mod ebisu {
         }
 
         #[ink(message)]
+        pub fn check_balance(&self) -> Balance{
+            let caller = self.env().caller();
+            let balance = self.asset_vault.get(caller).unwrap_or(0);
+            balance
+        }
+
+        #[ink(message)]
         pub fn deposit_nft(&mut self, nft_contract: AccountId, id: u32) -> Result<(), ContractError>{
             let caller = self.env().caller();
             let transfer_res = PSP34Ref::transfer_builder(&nft_contract, self.env().account_id(), Id::U32(id), vec![]).call_flags(CallFlags::default().set_allow_reentry(true)).fire();
@@ -299,6 +306,14 @@ mod ebisu {
                 return Ok(())
             }
             Err(ContractError::NftNotDeposited)
+        }
+
+        #[ink(message)]
+        pub fn nft_balance(&self) -> Vec<(AccountId, u32)>{
+            let caller = Self::env().caller();
+            let default_value: Vec<(AccountId, u32)> = Vec::new();
+            let result = self.nft_vault.get(caller).unwrap_or(default_value);
+            result
         }
 
         #[ink(message)]
@@ -338,7 +353,7 @@ mod ebisu {
         }
 
         #[ink(message)]
-        pub fn get_auction_lists(&self) -> Vec<(u128, AuctionData)>{
+        pub fn get_auction_list(&self) -> Vec<(u128, AuctionData)>{
             let mut list = Vec::new();
             for i in 0..=self.auction_count{
                 if let Some(data) = self.auction_details.get(i){
@@ -408,7 +423,7 @@ mod ebisu {
             let loan_id = self.get_new_loan_id();
             let amount_to_be_paid = amount_borrowed + (((amount_borrowed * time as u128 * rate as u128)/ 365)/ 10000);
             let loan_started_on = self.env().block_timestamp();
-            let loan_ends_on = loan_started_on + ((time * 24 * 60 * 60)/ 6);
+            let loan_ends_on = loan_started_on + (time * 24 * 60 * 60);
             let loan_data = LoanData{
                 lent_by,
             borrowed_by,
