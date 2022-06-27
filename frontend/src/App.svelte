@@ -1,7 +1,6 @@
 <script>
-    import DepositNft from "./functions/DepositNft.svelte";
 </script>
 
 <main>
-    <DepositNft />
+    <h1>Hello</h1>
 </main>

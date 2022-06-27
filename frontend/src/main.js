@@ -2010,7 +2010,7 @@ const CONTRACT_ABI = {
     ]
   }
 };
-const CONTRACT_ADDRESS = "5FEsvzG5mDNtZZGAYWpck7hr9M83vVqQzVwBd5fhnY2FTUGy";
+const CONTRACT_ADDRESS = "5EwgJY4QESD69Dd5SFp2VcomMLJxJM7B4Ao6BLycfLLGawpd";
 
 const provider = new WsProvider('ws://127.0.0.1:9944');
 
@@ -2024,14 +2024,13 @@ export const selectedAccount = allAccounts[0];
 
 export const injector = await web3FromSource(selectedAccount.meta.source);
 
-// const res = await contract.query.getAuctionList(
-//     selectedAccount.address, { storageDepositLimit: null, gasLimit: -1 },
-//     // "5H4GM9SboBNMxotX5TsGNk2t92unLxNdPW5BfzdCjW9snqMR",
-//     // 100
-//     );
-//
-// console.log(`outcome: ${res.result.isOk ? console.log(res.output.toHuman()) : 'Error'}`);
-// console.log(`gasRequired ${res.gasRequired.toString()}`);
+const res = await contract.query.createAuction(
+    selectedAccount.address, { storageDepositLimit: null, gasLimit: -1 },
+    "5FEsvzG5mDNtZZGAYWpck7hr9M83vVqQzVwBd5fhnY2FTUGy", 10, 10000, 30, 500
+    );
+
+console.log(`outcome: ${res.result.isOk ? console.log(res.output.toHuman()) : 'Error'}`);
+console.log(`gasRequired ${res.gasRequired.toString()}`);
 const app = new App({
   target: document.getElementById('app')
 })
