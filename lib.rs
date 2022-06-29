@@ -68,6 +68,39 @@ mod ebisu {
         rate: u32,
     }
 
+    #[derive(scale::Encode, scale::Decode, PackedLayout, SpreadLayout, Clone, Copy)]
+    #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
+    pub struct AuctionAcceptedData{
+        accepted_investor: AccountId,
+        amount: Balance,
+        time: u64,
+        rate: u32,
+    }
+
+    #[derive(scale::Encode, scale::Decode, PackedLayout, SpreadLayout, Clone, Copy)]
+    #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
+    pub struct AuctionResult{
+        created_by: AccountId,
+        nft_contract: AccountId,
+        token_id: u32,
+        amount_asked: Balance,
+        time_asked: u64,
+        rate_asked: u32,
+        accepted_data: Option<AuctionAcceptedData>
+    }
+
+    #[derive(scale::Encode, scale::Decode, PackedLayout, SpreadLayout, Clone, Copy)]
+    #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
+    pub struct LoanResult{
+        lent_by: AccountId,
+        borrowed_by: AccountId,
+        amount_borrowed: Balance,
+        time: u64,
+        rate: u32,
+        collateral_withdrawal: bool,
+        amount_paid: Option<Balance>,
+    }
+
     #[ink(storage)]
     #[derive(SpreadAllocate)]
     pub struct Ebisu{
@@ -85,6 +118,8 @@ mod ebisu {
         loan_details: Mapping<u128, LoanData>,
         // mapping of (nft_contract's address, id) to value of (lender, borrower)
         collateral_vault: Mapping<(AccountId, u32), (AccountId, AccountId)>,
+        auction_history: Mapping<u128, AuctionResult>,
+        loan_history: Mapping<u128, LoanResult>,
     }
 
     #[ink(event)]
@@ -414,6 +449,22 @@ mod ebisu {
                 self.auction_details.remove(auction_id);
                 self.bid_details.remove(auction_id);
                 self.env().transfer(caller, bid_data.amount).expect("Transfer failed");
+                let auction_accepted_data = AuctionAcceptedData{
+                    accepted_investor: bid_data.by,
+                    amount: bid_data.amount,
+                    time: bid_data.time,
+                    rate: bid_data.rate,
+                };
+                let auction_result = AuctionResult{
+                    created_by: data.by,
+                    nft_contract: data.nft_contract,
+                    token_id: data.id,
+                    amount_asked: data.amount_asked,
+                    time_asked: data.time_asked,
+                    rate_asked: data.rate_asked,
+                    accepted_data: Some(auction_accepted_data),
+                };
+                self.auction_history.insert(auction_id, &auction_result);
                 return Ok(())
             }
             Err(ContractError::AuctionDoesNotExist)
@@ -472,6 +523,16 @@ mod ebisu {
                     auction_id,
                     cancelled_by: self.env().caller(),
                 });
+                let auction_result = AuctionResult{
+                    created_by: data.by,
+                    nft_contract: data.nft_contract,
+                    token_id: data.id,
+                    amount_asked: data.amount_asked,
+                    time_asked: data.time_asked,
+                    rate_asked: data.rate_asked,
+                    accepted_data: None,
+                };
+                self.auction_history.insert(auction_id, &auction_result);
                 return Ok(())
             }
             Err(ContractError::AuctionDoesNotExist)
@@ -523,6 +584,16 @@ mod ebisu {
                     loan_id,
                     paid_by: loan_data.borrowed_by,
                 });
+                let loan_result = LoanResult{
+                    lent_by: loan_data.lent_by,
+                    borrowed_by: loan_data.borrowed_by,
+                    amount_borrowed: loan_data.amount_borrowed,
+                    time: loan_data.time,
+                    rate: loan_data.rate,
+                    collateral_withdrawal: false,
+                    amount_paid: Some(transferred_value),
+                };
+                self.loan_history.insert(loan_id, &loan_result);
                 return Ok(())
             }
             Err(ContractError::LoanDoesNotExist)
@@ -553,9 +624,43 @@ mod ebisu {
                     nft_contract: loan_data.nft_contract,
                     token_id: loan_data.id
                 });
+                let loan_result = LoanResult{
+                    lent_by: loan_data.lent_by,
+                    borrowed_by: loan_data.borrowed_by,
+                    amount_borrowed: loan_data.amount_borrowed,
+                    time: loan_data.time,
+                    rate: loan_data.rate,
+                    collateral_withdrawal: true,
+                    amount_paid: None,
+                };
+                self.loan_history.insert(loan_id, &loan_result);
                 return Ok(())
             }
             Err(ContractError::LoanDoesNotExist)
+        }
+
+        #[ink(message)]
+        pub fn get_auction_history(&self) -> Vec<(u128, AuctionResult)>{
+            let count = self.auction_count;
+            let mut auction_history: Vec<(u128, AuctionResult)> = Vec::new();
+            for i in 0..count{
+                if let Some(data) = self.auction_history.get(i){
+                    auction_history.push((i, data))
+                }
+            }
+            auction_history
+        }
+
+        #[ink(message)]
+        pub fn get_loan_history(&self) -> Vec<(u128, LoanResult)>{
+            let count = self.loan_count;
+            let mut loan_history: Vec<(u128, LoanResult)> = Vec::new();
+            for i in 0..count{
+                if let Some(data) = self.loan_history.get(i){
+                    loan_history.push((i, data))
+                }
+            }
+            loan_history
         }
     }
 }

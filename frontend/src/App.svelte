@@ -1,6 +1,7 @@
 <script>
+    import AcceptOffer from "./functions/AcceptOffer.svelte";
 </script>
 
 <main>
-    <h1>Hello</h1>
+    <AcceptOffer auction_id = 10, offer_index = 20/>
 </main>

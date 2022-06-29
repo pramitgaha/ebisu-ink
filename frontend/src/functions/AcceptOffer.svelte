@@ -8,9 +8,12 @@
             storageDepositLimit: null,
         }, auction_id, offer_index).signAndSend(
             selectedAccount.address,
-            {signer: injector.signer}
+            {signer: injector.signer},
+            (result) =>{
+                console.log(result)
+            }
         )
     }
 </script>
 
-<button on:click={acceptOffer}></button>
+<button on:click={() => acceptOffer()}></button>
