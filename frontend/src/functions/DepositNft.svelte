@@ -8,32 +8,58 @@
         let nft_contract = new ContractPromise(api, NFT_CONTRACT_ABI, nft_contract_address);
 
         //calling approve function of nft
-        const { gasRequired, result, output } = await nft_contract.query["PSP34::approve"](
+        const {gasRequired, result, output} = await nft_contract.query["psp34::approve"](
             selectedAccount.address,
-            { gasLimit: -1, storageDepositLimit: null},
-            CONTRACT_ADDRESS, { U32: id }, true
+            {gasLimit: -1, storageDepositLimit: null},
+            CONTRACT_ADDRESS, {u32: id}, true
         );
-        if (result.toHuman().Err){
+        if (result.toHuman().Err) {
             alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
             return
-        }else{
-            if (output.toHuman().Err){
-                alert(`Transaction failed: ${output.toHuman().Err.toString()}`)
+        }
+        if (output.toHuman().Err) {
+            alert(`line:21 Transaction failed: ${output.toHuman().Err.toString()}`)
+            return
+        }
+        await nft_contract.tx["psp34::approve"](
+            {gasLimit: gasRequired, value: 0, storageDepositLimit: null},
+            CONTRACT_ADDRESS, {u32: id}, true
+        ).signAndSend(
+            selectedAccount.address,
+            {signer: injector.signer},
+            async (res) => {
+                if (res.status.isFinalized) {
+                    alert("Tx submitted")
+                }
+            }
+        )
+        {
+            const {gasRequired, result, output} = await contract.query.depositNft(
+                selectedAccount.address,
+                {gasLimit: -1, value: 0, storageDepositLimit: null},
+                nft_contract_address, id
+            )
+            if (result.toHuman().Err) {
+                alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
                 return
             }
-            await nft_contract.tx.approve(
-                { gasLimit: gasRequired, value: 0, storageDepositLimit: null },
-                CONTRACT_ADDRESS, { U32: id }, true
+            if (output.toHuman().Err) {
+                alert(`line:47 Transaction failed: ${output.toHuman().Err.toString()}`)
+                return
+            }
+            await contract.tx.depositNft(
+                {value: 0, gasLimit: gasRequired, storageDepositLimit: null},
+                nft_contract_address, id
             ).signAndSend(
                 selectedAccount.address,
-                { signer: injector.signer },
-                async (res) => {
-                    if (res.status.isFinalized){
-                        alert("Tx submitted")
+                {signer: injector.signer},
+                (res) => {
+                    if (res.status.isFinalized) {
+                        alert("tx submitted")
                     }
                 }
             )
-            alert("Approval successful")
+            alert("Deposit successful")
         }
     }
 </script>

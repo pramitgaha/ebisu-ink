@@ -3284,7 +3284,7 @@ const res = await contract.query.createAuction(
     "5FEsvzG5mDNtZZGAYWpck7hr9M83vVqQzVwBd5fhnY2FTUGy", 10, 10000, 30, 500
     );
 
-console.log(`outcome: ${res.result.isOk ? console.log(res.output.toHuman()) : 'Error'}`);
+console.log(`outcome: ${res.result.isOk ? console.log(res.output.toHuman().Err) : 'Error'}`);
 console.log(`gasRequired ${res.gasRequired.toString()}`);
 const app = new App({
   target: document.getElementById('app')
