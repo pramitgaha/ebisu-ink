@@ -1,7 +1,9 @@
 <script>
-    import AcceptOffer from "./functions/AcceptOffer.svelte";
+    // import { Router, Route } from "svelte-routing";
+    // import CreateAuction from "./functions/CreateAuction.svelte";
+    import DepositNft from "./functions/DepositNft.svelte";
 </script>
 
 <main>
-    <AcceptOffer auction_id = 10, offer_index = 20/>
+    <DepositNft />
 </main>

@@ -4,21 +4,30 @@
     const PRECISION = 1000000000000;
 
     const withdrawAsset = async () => {
-        try {
-            await contract.tx.withdrawAsset({
-                storageDepositLimit: null,
-                gasLimit: 74999922688,
-            }, amount * PRECISION).signAndSend(
+        const { gasRequired, result, output } = await contract.query.withdrawAsset(
+            selectedAccount.address,
+            { gasLimit: -1, value: 0, storageDepositLimit: null},
+            amount * PRECISION
+        )
+        if (result.toHuman().Err){
+            alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
+            return
+        }else{
+            if (output.toHuman().Err){
+                alert(`Transaction failed: ${output.toHuman().Err.toString()}`)
+                return
+            }
+            await contract.tx.withdrawAsset(
+                { storageDepositLimit: null, gasLimit: gasRequired },
+                amount * PRECISION).signAndSend(
                 selectedAccount.address,
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized) {
-                        alert("withdraw successful")
+                        alert("tx submitted")
                     }
                 })
             alert("Withdraw successful")
-    }catch (err) {
-            alert("Withdraw failed")
         }
     }
 </script>

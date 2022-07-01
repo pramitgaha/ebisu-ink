@@ -2,28 +2,39 @@
     import {contract, selectedAccount, injector } from "../main.js";
 
     export let auction_id;
+    const PRECISION = 1000000000000;
     let amount;
     let time;
     let rate;
 
     const createBid = async () => {
-        try {
+        const { gasRequired, result, output } = await contract.query.createBid(
+            selectedAccount.address,
+            { value: 0, gasLimit: -1, storageDepositLimit: null },
+            auction_id, amount * PRECISION, time, rate * 100
+        )
+        if (result.toHuman().Err){
+            alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
+            return
+        }else{
+            if (output.toHuman().Err){
+                alert(`Transaction failed: ${output.toHuman().Err.toString()}`)
+                return
+            }
             await contract.tx.createBid({
                 value: 0,
-                gasLimit: 74999922688,
+                gasLimit: gasRequired,
                 storageDepositLimit: null,
             }, auction_id, amount, time, rate * 100).signAndSend(
                 selectedAccount.address,
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized){
-                        alert("Tx successful")
+                        alert("Tx submitted")
                     }
                 }
             )
-            alert("Deposit successful")
-        }catch (err){
-            alert("Failed to make a bid")
+            alert("Offer created")
         }
     }
 </script>

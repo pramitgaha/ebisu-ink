@@ -228,7 +228,7 @@ mod ebisu {
 
         fn get_new_loan_id(&mut self) -> u128{
             let id = self.loan_count;
-            self.auction_count += 1;
+            self.loan_count += 1;
             id
         }
 
@@ -580,10 +580,6 @@ mod ebisu {
                 self.nft_vault.insert(loan_data.borrowed_by, &prev_nft);
                 self.loan_details.remove(loan_id);
                 self.collateral_vault.remove((loan_data.nft_contract, loan_data.id));
-                self.env().emit_event(LoanPaid{
-                    loan_id,
-                    paid_by: loan_data.borrowed_by,
-                });
                 let loan_result = LoanResult{
                     lent_by: loan_data.lent_by,
                     borrowed_by: loan_data.borrowed_by,
@@ -594,6 +590,10 @@ mod ebisu {
                     amount_paid: Some(transferred_value),
                 };
                 self.loan_history.insert(loan_id, &loan_result);
+                self.env().emit_event(LoanPaid{
+                    loan_id,
+                    paid_by: loan_data.borrowed_by,
+                });
                 return Ok(())
             }
             Err(ContractError::LoanDoesNotExist)
@@ -618,12 +618,6 @@ mod ebisu {
                 self.nft_vault.insert(loan_data.lent_by, &prev_nft);
                 self.collateral_vault.remove((loan_data.nft_contract, loan_data.id));
                 self.loan_details.remove(loan_id);
-                self.env().emit_event(CollateralWithdrawal{
-                    loan_id,
-                    withdrawn_by: loan_data.lent_by,
-                    nft_contract: loan_data.nft_contract,
-                    token_id: loan_data.id
-                });
                 let loan_result = LoanResult{
                     lent_by: loan_data.lent_by,
                     borrowed_by: loan_data.borrowed_by,
@@ -634,6 +628,12 @@ mod ebisu {
                     amount_paid: None,
                 };
                 self.loan_history.insert(loan_id, &loan_result);
+                self.env().emit_event(CollateralWithdrawal{
+                    loan_id,
+                    withdrawn_by: loan_data.lent_by,
+                    nft_contract: loan_data.nft_contract,
+                    token_id: loan_data.id
+                });
                 return Ok(())
             }
             Err(ContractError::LoanDoesNotExist)

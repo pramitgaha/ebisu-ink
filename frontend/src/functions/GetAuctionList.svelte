@@ -4,15 +4,17 @@
 
     const getList = async () =>{
         await contract.query.getAuctionList(selectedAccount.address, {gasLimit: -1, storageDepositLimit: null,}).
-            then((res) =>{
-                if (res.result.status.isFinalized){
-                    alert('successful')
+            then(
+                (res) => {
+                    if (res.result.asOk){
+                        list = res.output.toJSON()
+                    }
                 }
-            list = res.output.toJson()
-        },)
-        console.log(list)
+            ).catch((err) =>{
+                alert(err)
+            })
     }
 
 </script>
 
-<button on:click={getList()}>show</button>
+<button on:load={getList()}>show</button>
