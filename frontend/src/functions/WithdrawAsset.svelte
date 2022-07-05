@@ -36,3 +36,9 @@
     <input type="number" placeholder="amount to withdraw" bind:value={amount}>
     <button>withdraw</button>
 </form>
+
+<style>
+    form{
+        text-align: center;
+    }
+</style>

@@ -6,7 +6,7 @@
     const getCollateral = async () => {
         const { gasRequired, result, output } = await contract.query.getCollateral(
             selectedAccount.address,
-            { gasLimit: -1, storageDepositLimit: null, value:  CANCELLATION_FEE },
+            { gasLimit: -1, storageDepositLimit: null, value: CANCELLATION_FEE },
             loan_id
         )
         if (result.toHuman().Err){

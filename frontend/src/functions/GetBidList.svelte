@@ -1,8 +1,9 @@
 <script>
     import { contract, selectedAccount } from "../main.js";
+import AcceptOffer from "./AcceptOffer.svelte";
     export let auction_id;
-    let list;
     const getBidList = async () => {
+        const list = []
         const { result, output } = await contract.query.getBidList(
             selectedAccount.address,
             { gasLimit: -1, storageDepositLimit: null },
@@ -16,17 +17,43 @@
             alert(`Failed to fetched list: ${output.toHuman().Err.toString()}`)
             return
         }
-        list = output.toHuman().Ok
+        console.log(output.toHuman().Ok)
+        let data = output.toHuman().Ok
+        for (let i = 0; i < data.length; i++){
+            let obj = {
+                offer_index: i,
+                offered_by: data[i].by,
+                amount_offered: data[i].amount,
+                time: data[i].time,
+                rate: data[i].rate
+            }
+            list.push(obj)
+        }
+        return list
     }
-    getBidList()
+    let list = getBidList()
 </script>
 
 <list>
-    {#if list.length === 0}
-        <h2>No offer</h2>
+    {#await list}
+        <p>Loading auction list</p>
+    {:then ResolvedList} 
+        {#if ResolvedList.length === 0}
+        <p>No offer available</p>
         {:else}
-        {#each list as bid(bid[0])}
-            <p>{bid}</p>
-            {/each}
+        {#each ResolvedList as offer(offer.offer_index)}
+        <div>
+            <p>Offered by: {offer.offered_by}</p>
+            <p>Time: {offer.time} Rate: {offer.rate/ 100}%</p>
+            <AcceptOffer auction_id={Number(auction_id)}, offer_index={offer.offer_index} />
+            </div>
+        {/each}
         {/if}
+    {/await}
 </list>
+
+<style>
+    list{
+        text-align: center;
+    }
+</style>

@@ -47,3 +47,9 @@
     <input type="number" placeholder="Rate asked" bind:value={rate_asked}>
     <button>Create Auction</button>
 </form>
+
+<style>
+    form{
+        text-align: center;
+    }
+</style>

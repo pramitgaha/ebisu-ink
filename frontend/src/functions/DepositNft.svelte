@@ -69,3 +69,9 @@
     <input type="number" placeholder="Token Id" bind:value={id}>
     <button>Deposit Nft</button>
 </form>
+
+<style>
+    form{
+        text-align: center;
+    }
+</style>

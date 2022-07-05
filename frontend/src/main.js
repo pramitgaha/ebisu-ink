@@ -5,7 +5,7 @@ import { ContractPromise } from "@polkadot/api-contract";
 
 const CONTRACT_ABI = {
   "source": {
-    "hash": "0x35dfcc5f554dfbc0e8520cc7ff6d3b4509478c9d366654aa1e6ca13fc075fefa",
+    "hash": "0x1caa21f6dbb739cfd87314923f5c81711881e7a23c81953ec357067e82d8b743",
     "language": "ink! 3.2.0",
     "compiler": "rustc 1.64.0-nightly"
   },
@@ -3262,7 +3262,7 @@ export const NFT_CONTRACT_ABI = {
   }
 };
 
-export const CONTRACT_ADDRESS = "5GqJ178WUP8UYwYV9A1gKnBxyJQZMkkjuqT75synXotDvajS";
+export const CONTRACT_ADDRESS = "5CfrGpKMNxAYBvTvtp73FLb6ZZnvmfQHk85DYizApkiCvkXC";
 
 const provider = new WsProvider('ws://127.0.0.1:9944');
 
@@ -3278,14 +3278,6 @@ const allAccounts = await web3Accounts();
 export const selectedAccount = allAccounts[0];
 
 export const injector = await web3FromSource(selectedAccount.meta.source);
-
-const res = await contract.query.createAuction(
-    selectedAccount.address, { storageDepositLimit: null, gasLimit: -1 },
-    "5FEsvzG5mDNtZZGAYWpck7hr9M83vVqQzVwBd5fhnY2FTUGy", 10, 10000, 30, 500
-    );
-
-console.log(`outcome: ${res.result.isOk ? console.log(res.output.toHuman().Err) : 'Error'}`);
-console.log(`gasRequired ${res.gasRequired.toString()}`);
 const app = new App({
   target: document.getElementById('app')
 })

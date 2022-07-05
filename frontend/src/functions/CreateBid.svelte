@@ -43,5 +43,11 @@
     <input type="number" placeholder="Bid amount" bind:value={amount}>
     <input type="number" placeholder="Lent time in days" bind:value={time}>
     <input type="number" placeholder="interest rate" bind:value={rate}>
-    <submit>Create Bid</submit>
+    <button>Create Bid</button>
 </form>
+
+<style>
+    form{
+        text-align: center;
+    }
+</style>

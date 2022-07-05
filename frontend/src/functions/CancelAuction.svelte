@@ -36,4 +36,12 @@
     }
 </script>
 
+<cancel>
 <button on:click={() => {cancelAuction()}}>Cancel Auction</button>
+</cancel>
+
+<style>
+    cancel{
+        text-align: center;
+    }
+</style>

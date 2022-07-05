@@ -237,8 +237,8 @@ mod ebisu {
             ink_lang::utils::initialize_contract(|contract: &mut Ebisu|{
                 contract.owner = Self::env().caller();
                 contract.fee = fee;
-                contract.auction_count = 0;
-                contract.loan_count = 0;
+                contract.auction_count = 1;
+                contract.loan_count = 1;
                 contract.auction_cancellation_fee = auction_cancellation_fee;
                 contract.loan_default_fee = loan_default_fee;
             })
@@ -338,6 +338,7 @@ mod ebisu {
                     return Err(ContractError::TransferFailed)
                 }
                 list.retain(|(nft, nft_id)| *nft != nft_contract && *nft_id != id);
+                self.nft_vault.insert(caller, &list);
                 return Ok(())
             }
             Err(ContractError::NftNotDeposited)
@@ -559,7 +560,7 @@ mod ebisu {
 
         #[ink(message, payable)]
         pub fn pay_loan(&mut self, loan_id: u128) -> Result<(), ContractError>{
-            if let Some(loan_data) = self.loan_details.get(loan_id){
+            let loan_data = self.loan_details.get(loan_id).ok_or(ContractError::LoanDoesNotExist)?;
                 if self.env().caller() != loan_data.borrowed_by{
                     return Err(ContractError::Unauthorized)
                 }
@@ -595,8 +596,6 @@ mod ebisu {
                     paid_by: loan_data.borrowed_by,
                 });
                 return Ok(())
-            }
-            Err(ContractError::LoanDoesNotExist)
         }
 
         #[ink(message, payable)]

@@ -6,10 +6,12 @@
     export let amount;
 
     const payLoan = async() => {
+        // console.log(amount)
+        // console.log(Number(amount))
         const {gasRequired, result, output} = await contract.query.payLoan(
             selectedAccount.address,
-            {gasLimit: -1, storageDepositLimit: null, value: amount * PRECISION},
-            loan_id
+            {gasLimit: -1, storageDepositLimit: null, value: parseInt(amount.replace(/,/g, ''))},
+            parseInt(loan_id)
         )
         if (result.toHuman().Err){
             alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
@@ -20,8 +22,8 @@
                 return
             }
             await contract.tx.payLoan(
-                { gasLimit: gasRequired, value: amount * PRECISION, storageDepositLimit: null },
-                loan_id
+                { gasLimit: gasRequired, value: parseInt(amount.replace(/,/g, '')), storageDepositLimit: null },
+                parseInt(loan_id)
             ).signAndSend(
                 selectedAccount.address,
                 { signer: injector.signer },

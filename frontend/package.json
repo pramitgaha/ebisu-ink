@@ -18,5 +18,14 @@
     "@polkadot/api-contract": "^8.10.1",
     "@polkadot/extension-dapp": "^0.44.1",
     "svelte-routing": "^1.6.0"
+  },
+  "jest": {
+    "tranform": {
+      "^.+\\.svelte$": "svelte-jester",
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(svelte-routing)/)"
+    ]
   }
 }

@@ -4,10 +4,11 @@
     export let auction_id;
     export let offer_index;
     const acceptOffer = async () => {
-        const { gasRequired, result ,output } = await contract.query.acceptOffer(
+        console.log(auction_id, Number(offer_index))
+        const { gasRequired, result ,output } = await contract.query.acceptOrder(
             selectedAccount.address,
             { gasLimit: -1, storageDepositLimit: null, value: 0 },
-            auction_id, offer_index
+            parseInt(auction_id), offer_index
         );
         if (result.toHuman().Err){
             alert(`Transaction failed: ${result.toHuman().Err.toString()}`)
@@ -16,9 +17,9 @@
             if (output.toHuman().Err){
                 alert(`Transaction failed: ${output.toHuman().Err.toString()}`)
             }
-            await contract.tx.acceptOffer(
+            await contract.tx.acceptOrder(
                 { gasLimit: gasRequired, storageDepositLimit: null, value: 0 },
-                auction_id, offer_index
+                parseInt(auction_id), offer_index
             ).signAndSend(
                 selectedAccount.address,
                 { signer: injector.signer },
@@ -33,4 +34,6 @@
     }
 </script>
 
-<button on:click={() => acceptOffer()}></button>
+<accept>
+<button on:click={() => acceptOffer()}>Accept this Offer</button>
+</accept>

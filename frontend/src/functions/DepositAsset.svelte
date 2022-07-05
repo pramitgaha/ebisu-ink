@@ -38,3 +38,9 @@
     <input type="number" placeholder="Amount" bind:value={value}>
     <button>Deposit</button>
 </form>
+
+<style>
+    form{
+        text-align: center;
+    }
+</style>
