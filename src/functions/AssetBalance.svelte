@@ -8,7 +8,7 @@
             selectedAccount.address,
             { value: 0, gasLimit: -1, storageDepositLimit: null }
         )
-
+        console.log(result.toHuman())
         if ( result.toHuman().Err){
             alert(`Failed to fetch balance: ${result.toHuman().Err.toString()}`)
                 return
@@ -20,7 +20,7 @@
 </script>
 
 <div>
-    <h3>Your balance: {parseInt(balance.replace(/,/g, ''))/ 1000000000000}</h3>
+    <h3>Your balance: {balance}</h3>
 </div>
 
 <style>
