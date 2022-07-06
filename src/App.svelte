@@ -14,7 +14,7 @@
 
 <main>
     <Router url={url}>
-        <nav>
+        <nav class="links">
             <Link to="/">Home</Link>
             <Link to="/auction">Auction</Link>
             <Link to="/auction-history">Auction History</Link>
@@ -38,5 +38,6 @@
     main nav{
         background-color: white;
         text-align: center;
+        word-spacing: 15px;
     }
 </style>
