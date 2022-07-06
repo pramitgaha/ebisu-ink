@@ -37,7 +37,7 @@
 </script>
 
 <cancel>
-<button on:click={() => {cancelAuction()}}>Cancel Auction</button>
+<button on:click|preventDefault={() => {cancelAuction()}}>Cancel Auction</button>
 </cancel>
 
 <style>

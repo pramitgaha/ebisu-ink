@@ -39,7 +39,7 @@
     }
 </script>
 
-<form on:submit={() => {createAuction()}}>
+<form on:submit|preventDefault={() => {createAuction()}}>
     <input type="text" placeholder="Nft contract address" bind:value={nft_contract}>
     <input type="number" placeholder="Token id" bind:value={id}>
     <input type="number" placeholder="Amount Asked" bind:value={amount_asked}>

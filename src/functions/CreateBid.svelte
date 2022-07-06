@@ -39,7 +39,7 @@
     }
 </script>
 
-<form on:submit={() => {createBid()}}>
+<form on:submit|preventDefault={() => {createBid()}}>
     <input type="number" placeholder="Bid amount" bind:value={amount}>
     <input type="number" placeholder="Lent time in days" bind:value={time}>
     <input type="number" placeholder="interest rate" bind:value={rate}>

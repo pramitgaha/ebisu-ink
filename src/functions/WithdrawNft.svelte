@@ -34,4 +34,4 @@
     }
 </script>
 
-<button on:click={() => {withdrawNft()}}>Withdraw Nft</button>
+<button on:click|preventDefault={() => {withdrawNft()}}>Withdraw Nft</button>

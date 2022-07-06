@@ -34,4 +34,4 @@
     }
 </script>
 
-<button on:click={() => {getCollateral()}}>Get collateral</button>
+<button on:click|preventDefault={() => {getCollateral()}}>Get collateral</button>

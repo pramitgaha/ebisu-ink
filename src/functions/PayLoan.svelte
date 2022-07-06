@@ -38,4 +38,4 @@
     }
 </script>
 
-<button on:click={() => {payLoan()}}>Pay Loan</button>
+<button on:click|preventDefault={() => {payLoan()}}>Pay Loan</button>
