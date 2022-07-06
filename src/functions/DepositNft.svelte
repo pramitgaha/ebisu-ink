@@ -64,7 +64,7 @@
     }
 </script>
 
-<form on:submit|preventDefault={() => {depositNft()}}>
+<form on:submit={() => {depositNft()}}>
     <input type="text" placeholder="Nft Contract Address" bind:value={nft_contract_address}>
     <input type="number" placeholder="Token Id" bind:value={id}>
     <button>Deposit Nft</button>

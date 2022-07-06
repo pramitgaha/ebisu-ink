@@ -32,7 +32,7 @@
     }
 </script>
 
-<form on:submit|preventDefault={() => {withdrawAsset()}}>
+<form on:submit={() => {withdrawAsset()}}>
     <input type="number" placeholder="amount to withdraw" bind:value={amount}>
     <button>withdraw</button>
 </form>

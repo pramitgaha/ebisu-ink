@@ -34,7 +34,7 @@
     }
 </script>
 
-<form on:submit|preventDefault={() => {depositAsset()}}>
+<form on:submit={() => {depositAsset()}}>
     <input type="number" placeholder="Amount" bind:value={value}>
     <button>Deposit</button>
 </form>
