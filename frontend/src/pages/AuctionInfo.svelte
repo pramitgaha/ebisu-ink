@@ -15,7 +15,7 @@
         <p>Asked by: {data.by}</p>
         <p>Nft contract address: {data.nft_contract} Id: {data.id}</p>
         <p>Amount asked: {data.amount_asked}</p>
-        <p>Rate Asked: {data.rate_asked}</p>
+        <p>Rate Asked: {parseInt(data.rate_asked.replace(/,/g, ''))}</p>
         <p>time asked: {data.time_asked}</p>
     </div>
     <div>

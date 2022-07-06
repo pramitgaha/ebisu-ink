@@ -51,7 +51,7 @@ import { contract, selectedAccount } from './../main';
                 <p>Amount borrowed: {loan.amount_borrowed}</p>
                 <p>Amount to be paid: {loan.amount_to_be_paid}</p>
                 <p>Lent by: {loan.lent_by}</p>
-                <p>rate: {loan.rate/ 100}%</p>
+                <p>rate: {parseInt(loan.rate.replace(/,/g, ''))/ 100}%</p>
                 <p>Time: {loan.time} days</p>
                 <Link to="loan/{loan.loan_id}"><button on:click={() => updateStore(loan)}>See more...</button></Link>
                 </div>

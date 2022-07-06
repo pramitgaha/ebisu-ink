@@ -20,7 +20,7 @@
 </script>
 
 <div>
-    <h3>Your balance: {balance}</h3>
+    <h3>Your balance: {parseInt(balance.replace(/,/g, ''))/ 1000000000000}</h3>
 </div>
 
 <style>
