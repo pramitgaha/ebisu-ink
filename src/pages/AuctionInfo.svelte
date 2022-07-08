@@ -26,10 +26,12 @@ import { selectedAccount } from './../main';
                 show_bid_function === true? show_bid_function = false: show_bid_function = true
             }}>Make a bid</button>
             {#if show_bid_function}
-            <CreateBid auction_id={data.auction_id}/>
+                <CreateBid auction_id={data.auction_id}/>
+            {/if} 
             {/if}
-            {/if}
+<br>
 </div>
+<hr>
     <div>
         <GetBidList auction_id={data.auction_id} by={data.by}/>
     </div>

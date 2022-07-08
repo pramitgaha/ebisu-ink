@@ -52,6 +52,7 @@
             <AcceptOffer auction_id={Number(auction_id)}, offer_index={offer.offer_index} />
             {/if}
             </div>
+            <hr>
         {/each}
         {/if}
     {/await}
