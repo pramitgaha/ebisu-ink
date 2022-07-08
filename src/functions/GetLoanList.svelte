@@ -48,8 +48,8 @@ import { contract, selectedAccount } from './../main';
             <div>
                 <p>Loan id: {loan.loan_id}</p>
                 <p>borrowed_by: {loan.borrowed_by}</p>
-                <p>Amount borrowed: {loan.amount_borrowed}</p>
-                <p>Amount to be paid: {loan.amount_to_be_paid}</p>
+                <p>Amount borrowed: {parseInt(loan.amount_borrowed.replace(/,/g, ''))}</p>
+                <p>Amount to be paid: {parseInt(loan.amount_to_be_paid.replace(/,/g, ''))}</p>
                 <p>Lent by: {loan.lent_by}</p>
                 <p>rate: {parseInt(loan.rate.replace(/,/g, ''))/ 100}%</p>
                 <p>Time: {loan.time} days</p>

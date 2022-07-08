@@ -30,7 +30,7 @@
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized){
-                        alert("Tx submitted")
+                        console.log("Tx submitted")
                     }
                 }
             )
@@ -40,7 +40,7 @@
 </script>
 
 <form on:submit|preventDefault={() => {createBid()}}>
-    <input type="number" placeholder="Bid amount" bind:value={amount}>
+    <input type="number" placeholder="Bid amount" bind:value={amount} step="0.000000000001">
     <input type="number" placeholder="Lent time in days" bind:value={time}>
     <input type="number" placeholder="interest rate" bind:value={rate}>
     <button>Create Bid</button>

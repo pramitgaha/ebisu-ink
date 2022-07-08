@@ -30,11 +30,11 @@
                 { signer: injector.signer },
                 (res) => {
                     if (res.status.isFinalized){
-                        alert ("Tx successful")
+                        console.log("Tx submitted")
                     }
                 }
             )
-            alert("Transaction successful")
+            alert("Auction Created")
         }
     }
 </script>
@@ -42,7 +42,7 @@
 <form on:submit|preventDefault={() => {createAuction()}}>
     <input type="text" placeholder="Nft contract address" bind:value={nft_contract}>
     <input type="number" placeholder="Token id" bind:value={id}>
-    <input type="number" placeholder="Amount Asked" bind:value={amount_asked}>
+    <input type="number" placeholder="Amount Asked" bind:value={amount_asked} step="0.000000000001">
     <input type="number" placeholder="Time asked in days" bind:value={time_asked}>
     <input type="number" placeholder="Rate asked" bind:value={rate_asked}>
     <button>Create Auction</button>

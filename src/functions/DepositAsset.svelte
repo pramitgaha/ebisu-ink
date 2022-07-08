@@ -25,7 +25,7 @@
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized) {
-                        alert("tx submitted")
+                        console.log("Tx submitted")
                     }
                 }
             )
@@ -35,7 +35,7 @@
 </script>
 
 <form on:submit|preventDefault={() => {depositAsset()}}>
-    <input type="number" placeholder="Amount" bind:value={value}>
+    <input type="number" placeholder="Amount" bind:value={value} step="0.000000000001">
     <button>Deposit</button>
 </form>
 

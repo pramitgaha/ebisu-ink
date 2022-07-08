@@ -17,7 +17,7 @@
         <nav class="links">
             <Link to="/">Home</Link>
             <Link to="/auction">Auction</Link>
-            <Link to="/auction-history">Auction History</Link>
+            <Link to="/auction-history">Auction-history</Link>
             <Link to="/loan">Loan</Link>
             <Link to="/loan-history">Loan-history</Link>
             <Link to="/vault">Vault</Link>
@@ -36,7 +36,9 @@
 
 <style>
     main nav{
-        background-color: white;
+        background-color: aqua;
+        text-decoration: none;
+        padding: 20px;
         text-align: center;
         word-spacing: 15px;
     }

@@ -3272,7 +3272,7 @@ export const api = await ApiPromise.create({ provider });
 export const contract = new ContractPromise(api, CONTRACT_ABI, CONTRACT_ADDRESS);
 const extensions = await web3Enable("Ebisu");
 if (extensions.length == 0){
-  alert("no extension found")
+  alert("no extension found\nInstall polkadot js")
 }
 const allAccounts = await web3Accounts();
 export const selectedAccount = allAccounts[0];

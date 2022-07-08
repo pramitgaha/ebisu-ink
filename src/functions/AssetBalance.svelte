@@ -13,14 +13,14 @@
             alert(`Failed to fetch balance: ${result.toHuman().Err.toString()}`)
                 return
         }
-        balance = output.toHuman()
+        balance = parseInt(output.toHuman().replace(/,/g, ''))/ 1000000000000;
     }
 
     getBalance().then(() => console.log(balance))
 </script>
 
 <div>
-    <h3>Your balance: {balance}</h3>
+        <h3>Your balance: {balance}</h3>
 </div>
 
 <style>

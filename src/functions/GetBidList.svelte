@@ -1,7 +1,9 @@
 <script>
     import { contract, selectedAccount } from "../main.js";
-import AcceptOffer from "./AcceptOffer.svelte";
+    import AcceptOffer from './AcceptOffer.svelte';
+
     export let auction_id;
+    export let by;
     const getBidList = async () => {
         const list = []
         const { result, output } = await contract.query.getBidList(
@@ -44,8 +46,11 @@ import AcceptOffer from "./AcceptOffer.svelte";
         {#each ResolvedList as offer(offer.offer_index)}
         <div>
             <p>Offered by: {offer.offered_by}</p>
-            <p>Time: {offer.time} Rate: {offer.rate/ 100}%</p>
+            <p>Amount offered: {offer.amount_offered}</p>
+            <p>Time: {offer.time} Rate: {parseInt(offer.rate.replace(/,/g, ''))/ 100}%</p>
+            {#if selectedAccount.address === by}
             <AcceptOffer auction_id={Number(auction_id)}, offer_index={offer.offer_index} />
+            {/if}
             </div>
         {/each}
         {/if}

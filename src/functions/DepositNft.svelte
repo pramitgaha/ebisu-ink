@@ -18,7 +18,7 @@
             return
         }
         if (output.toHuman().Err) {
-            alert(`line:21 Transaction failed: ${output.toHuman().Err.toString()}`)
+            alert(`Transaction failed: ${output.toHuman().Err.toString()}`)
             return
         }
         await nft_contract.tx["psp34::approve"](
@@ -29,7 +29,7 @@
             {signer: injector.signer},
             async (res) => {
                 if (res.status.isFinalized) {
-                    alert("Tx submitted")
+                    console.log("Tx submitted")
                 }
             }
         )

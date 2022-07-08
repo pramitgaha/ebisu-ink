@@ -24,7 +24,7 @@
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized) {
-                        alert("tx submitted")
+                        console.log("Tx submitted")
                     }
                 })
             alert("Withdraw successful")
@@ -33,7 +33,7 @@
 </script>
 
 <form on:submit|preventDefault={() => {withdrawAsset()}}>
-    <input type="number" placeholder="amount to withdraw" bind:value={amount}>
+    <input type="number" placeholder="amount to withdraw" bind:value={amount} step="0.000000000001">
     <button>withdraw</button>
 </form>
 

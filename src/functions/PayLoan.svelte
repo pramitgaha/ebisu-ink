@@ -29,7 +29,7 @@
                 { signer: injector.signer },
                 (res) => {
                     if (res.status.isFinalized){
-                        alert("tx submitted")
+                        console.log("Tx submitted")
                     }
                 }
             )
