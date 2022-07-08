@@ -1,5 +1,5 @@
 <script> 
-import { contract, selectedAccount } from './../main.js';
+    import { contract, selectedAccount } from './../main.js';
 
 
     const getLoanHistory = async () => {
@@ -45,12 +45,15 @@ import { contract, selectedAccount } from './../main.js';
                     <p>Loan id: {loan.loan_id}</p>
                     <p>Borrowed by: {loan.borrowed_by}</p>
                     <p>Lent by: {loan.lent_by}</p>
+                    <p>Amount borrowed: {parseInt(loan.amount_borrowed.replace(/,/g, ''))/ 1000000000000}</p>
+                    <p>Amount paid: {parseInt(loan.amount_paid.replace(/,/g, ''))/ 1000000000000}</p>
                     <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))} Time: {loan.time} days</p>
                     <p>Status: Loan Paid</p>
                 {:else}
                 <p>Loan id: {loan.loan_id}</p>
                     <p>Borrowed by: {loan.borrowed_by}</p>
                     <p>Lent by: {loan.lent_by}</p>
+                    <p>Amount borrowed: {parseInt(loan.amount_borrowed.replace(/,/g, ''))/ 1000000000000}</p>
                     <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))} Time: {loan.time} days</p>
                     <p>Status: Borrower failed to pay the loan</p>
                 {/if}
