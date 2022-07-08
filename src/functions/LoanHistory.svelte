@@ -47,14 +47,14 @@
                     <p>Lent by: {loan.lent_by}</p>
                     <p>Amount borrowed: {loan.amount_borrowed}</p>
                     <p>Amount paid: {loan.amount_paid}</p>
-                    <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))} Time: {loan.time} days</p>
+                    <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))/ 100}% Time: {loan.time} days</p>
                     <p>Status: Loan Paid</p>
                 {:else}
                 <p>Loan id: {loan.loan_id}</p>
                     <p>Borrowed by: {loan.borrowed_by}</p>
                     <p>Lent by: {loan.lent_by}</p>
                     <p>Amount borrowed: {loan.amount_borrowed}</p>
-                    <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))} Time: {loan.time} days</p>
+                    <p>Rate: {parseInt(loan.rate.replace(/,/g, ''))/ 100}% Time: {loan.time} days</p>
                     <p>Status: Borrower failed to pay the loan</p>
                 {/if}
             </div>

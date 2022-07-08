@@ -63,12 +63,12 @@ import { contract, selectedAccount } from './../main.js';
                 {#if auction.accepted_data === null}
                     <p>Auction Id: {auction.auction_id}</p>
                     <p>Nft contract: {auction.nft_contract}, id: {auction.id}</p>
-                    <p>Time: {auction.time} days Rate: {parseInt(auction.rate.replace(/,/g, ''))}</p>
+                    <p>Time: {auction.time} days Rate: {parseInt(auction.rate.replace(/,/g, ''))/ 100}%</p>
                     <p>status: Auction cancelled</p>
                 {:else}
                 <p>Auction Id: {auction.auction_id}</p>
                 <p>Nft contract: {auction.nft_contract}, id: {auction.id}</p>
-                <p>Time: {auction.time} Rate: {auction.rate}</p>
+                <p>Time: {auction.time} Rate: {parseInt(auction.rate.replace(/,/g, ''))/ 100}%</p>
                 <p>status: Offer accepted</p>
                 <p>Investor address: {auction.accepted.lender}</p>
                 <p>Amount accepted: {auction.accepted.amount}</p>
