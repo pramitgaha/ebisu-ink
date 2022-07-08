@@ -3279,8 +3279,7 @@ export const selectedAccount = allAccounts[0];
 
 export const injector = await web3FromSource(selectedAccount.meta.source);
 const app = new App({
-  target: document.getElementById('app'),
-  // hydrate: true
+  target: document.getElementById('app')
 })
 
 export default app
