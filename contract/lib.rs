@@ -449,6 +449,8 @@ mod ebisu {
                 self.collateral_vault.insert((data.nft_contract, data.id), &(bid_data.by, data.by));
                 self.auction_details.remove(auction_id);
                 self.bid_details.remove(auction_id);
+                let current_balance = self.asset_vault.get(bid_data.by).unwrap_or(0);
+                self.asset_vault.insert(bid_data.by, &(current_balance - bid_data.amount));
                 self.env().transfer(caller, bid_data.amount).expect("Transfer failed");
                 let auction_accepted_data = AuctionAcceptedData{
                     accepted_investor: bid_data.by,
