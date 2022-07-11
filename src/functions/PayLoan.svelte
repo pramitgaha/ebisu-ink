@@ -10,7 +10,7 @@
         // console.log(Number(amount))
         const {gasRequired, result, output} = await contract.query.payLoan(
             selectedAccount.address,
-            {gasLimit: -1, storageDepositLimit: null, value: parseInt(amount.replace(/,/g, ''))},
+            {gasLimit: -1, storageDepositLimit: null, value: amount * 1000000000000},
             parseInt(loan_id)
         )
         if (result.toHuman().Err){
@@ -22,7 +22,7 @@
                 return
             }
             await contract.tx.payLoan(
-                { gasLimit: gasRequired, value: parseInt(amount.replace(/,/g, '')), storageDepositLimit: null },
+                { gasLimit: gasRequired, value: amount * 1000000000000, storageDepositLimit: null },
                 parseInt(loan_id)
             ).signAndSend(
                 selectedAccount.address,
