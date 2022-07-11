@@ -17,8 +17,8 @@ import { contract, selectedAccount } from './../main';
         for (let i = 0; i < data.length; i++){
             let obj = {
                 loan_id: data[i][0],
-                amount_borrowed: data[i][1].amountBorrowed,
-                amount_to_be_paid: data[i][1].amountToBePaid,
+                amount_borrowed: parseInt(data[i][1].amountBorrowed.replace(/,/g, ''))/ 1000000000000,
+                amount_to_be_paid: parseInt(data[i][1].amountToBePaid.replace(/,/g, ''))/ 1000000000000,
                 borrowed_by: data[i][1].borrowedBy,
                 lent_by: data[i][1].lentBy,
                 loan_started_on: data[i][1].loanStartedOn,
@@ -48,8 +48,8 @@ import { contract, selectedAccount } from './../main';
             <div>
                 <p>Loan id: {loan.loan_id}</p>
                 <p>borrowed_by: {loan.borrowed_by}</p>
-                <p>Amount borrowed: {parseInt(loan.amount_borrowed.replace(/,/g, ''))}</p>
-                <p>Amount to be paid: {parseInt(loan.amount_to_be_paid.replace(/,/g, ''))}</p>
+                <p>Amount borrowed: {loan.amount_borrowed}</p>
+                <p>Amount to be paid: {loan.amount_to_be_paid}</p>
                 <p>Lent by: {loan.lent_by}</p>
                 <p>rate: {parseInt(loan.rate.replace(/,/g, ''))/ 100}%</p>
                 <p>Time: {loan.time} days</p>

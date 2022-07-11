@@ -4,7 +4,7 @@
 
     let nft_contract_address;
     let id;
-    const depositNft = async () => {
+    const approvalNft = async () => {
         let nft_contract = new ContractPromise(api, NFT_CONTRACT_ABI, nft_contract_address);
 
         //calling approve function of nft
@@ -33,7 +33,8 @@
                 }
             }
         )
-        {
+    }
+    const depositNft =  async () => {
             const {gasRequired, result, output} = await contract.query.depositNft(
                 selectedAccount.address,
                 {gasLimit: -1, value: 0, storageDepositLimit: null},
@@ -55,16 +56,18 @@
                 {signer: injector.signer},
                 (res) => {
                     if (res.status.isFinalized) {
-                        alert("tx submitted")
+                        console.log("tx submitted")
                     }
                 }
             )
             alert("Deposit successful")
         }
-    }
+        const doAll = async () => {
+            await approvalNft().then( async () => await depositNft())
+        }
 </script>
 
-<form on:submit|preventDefault={() => {depositNft()}}>
+<form on:submit|preventDefault={() => {doAll()}}>
     <input type="text" placeholder="Nft Contract Address" bind:value={nft_contract_address}>
     <input type="number" placeholder="Token Id" bind:value={id}>
     <button>Deposit Nft</button>

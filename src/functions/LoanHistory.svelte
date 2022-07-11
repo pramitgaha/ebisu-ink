@@ -17,8 +17,8 @@
         for (let i = 0; i < list.length; i++){
                 let obj = {
                 loan_id: list[i][0],
-                amount_borrowed: list[i][1].amountBorrowed,
-                amount_paid: list[i][1].amountPaid,
+                amount_borrowed: parseInt(list[i][1].amountBorrowed.replace(/,/g, ''))/ 1000000000000,
+                amount_paid: parseInt(list[i][1].amountPaid.replace(/,/g, ''))/ 1000000000000,
                 borrowed_by: list[i][1].borrowedBy,
                 collateral_withdrawal: list[i][1].collateralWithdrawal,
                 lent_by: list[i][1].lentBy,
