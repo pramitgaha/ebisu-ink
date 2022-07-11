@@ -366,7 +366,7 @@ mod ebisu {
                     by: caller,
                     nft_contract,
                     id,
-                    amount_asked,
+                    amount_asked: amount_asked * 1000000000000,
                     time_asked,
                     rate_asked
                 };
@@ -409,7 +409,7 @@ mod ebisu {
                 }
                 let bid_data = BidData{
                     by: caller,
-                    amount,
+                    amount: amount * 1000000000000,
                     time,
                     rate
                 };
