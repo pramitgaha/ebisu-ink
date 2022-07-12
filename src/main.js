@@ -5,7 +5,7 @@ import { ContractPromise } from "@polkadot/api-contract";
 
 const CONTRACT_ABI = {
   "source": {
-    "hash": "0x3ccaed544fa1adeaa919fdb60cf65c24896c036403e9833c935b52613d0c56ff",
+    "hash": "0x0d2fe9b66183d72dc8d0e24f7d05ea97eb4e5c22a401176d2f94443193be9792",
     "language": "ink! 3.2.0",
     "compiler": "rustc 1.64.0-nightly"
   },
@@ -3262,7 +3262,7 @@ export const NFT_CONTRACT_ABI = {
   }
 };
 
-export const CONTRACT_ADDRESS = "5Fa9rsq1JzrFdKmfWozbQysuQRZKpJisePCzKQDX22zsnXqQ";
+export const CONTRACT_ADDRESS = "5GLCnsAZG2QayYNdFfHvv3wa9BWu4aHHzcUoztAcmuCmZiBL";
 
 const provider = new WsProvider('wss://ws.test.azero.dev/');
 

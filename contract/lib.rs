@@ -477,7 +477,7 @@ mod ebisu {
             let loan_id = self.get_new_loan_id();
             let amount_to_be_paid = amount_borrowed + (((amount_borrowed * time as u128 * rate as u128)/ 365)/ 10000);
             let loan_started_on = self.env().block_timestamp();
-            let loan_ends_on = loan_started_on + (time * 24 * 60 * 60);
+            let loan_ends_on = loan_started_on + (time * 24 * 60 * 60 * 1000);
             let loan_data = LoanData{
                 lent_by,
             borrowed_by,
