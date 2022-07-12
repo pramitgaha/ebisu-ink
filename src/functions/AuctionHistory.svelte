@@ -71,7 +71,7 @@ import { contract, selectedAccount } from './../main.js';
                 <p>Time: {auction.time} Rate: {parseInt(auction.rate.replace(/,/g, ''))/ 100}%</p>
                 <p>status: Offer accepted</p>
                 <p>Investor address: {auction.accepted.lender}</p>
-                <p>Amount accepted: {auction.accepted.amount}</p>
+                <p>Amount accepted: {parseInt(auction.accepted.amount.replace(/,/g, ''))/ 1000000000000}</p>
                 <p>Rate: {parseInt(auction.accepted.rate.replace(/,/g, ''))/ 100}%  Time: {auction.accepted.time} days</p>
                 {/if}
             </div>

@@ -15,8 +15,8 @@ import { selectedAccount } from './../main';
         <p>Auction Id: {data.auction_id}</p>
         <p>Asked by: {data.by}</p>
         <p>Nft contract address: {data.nft_contract} Id: {data.id}</p>
-        <p>Amount asked: {parseInt(data.amount_asked.replace(/,/g, ''))/ 1000000000000}</p>
-        <p>Rate Asked: {parseInt(data.rate_asked.replace(/,/g, ''))}</p>
+        <p>Amount asked: {data.amount_asked/ 1000000000000}</p>
+        <p>Rate Asked: {parseInt(data.rate_asked.replace(/,/g, ''))/ 100}%</p>
         <p>time asked: {data.time_asked}</p>
         {#if selectedAccount.address === data.by}
             <CancelAuction auction_id={data.auction_id}/>

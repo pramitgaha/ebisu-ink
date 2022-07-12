@@ -19,7 +19,7 @@
                 by: data[i][1].by,
                 nft_contract: data[i][1].nftContract,
                 id: data[i][1].id,
-                amount_asked: data[i][1].amountAsked,
+                amount_asked: parseInt(data[i][1].amountAsked.replace(/,/g, ''))/ 10000000000000,
                 rate_asked: data[i][1].rateAsked,
                 time_asked: data[i][1].timeAsked
             }
@@ -47,7 +47,7 @@
             <p>Auction Id: {auction.auction_id}</p>
             <p>Asked by: {auction.by}</p>
             <p>Nft contract address: {auction.nft_contract} Id: {auction.id}</p>
-            <p>Amount asked: {parseInt(auction.amount_asked.replace(/,/g, ''))/ 1000000000000}</p>
+            <p>Amount asked: {auction.amount_asked/ 1000000000000}</p>
             <p>Rate Asked: {parseInt(auction.rate_asked.replace(/,/g, ''))/ 100}%</p>
             <p>time asked: {auction.time_asked} days</p>
             <Link to="auction/{auction.auction_id}"><button on:click={() => {updateStore(auction)}}>See More...</button></Link>
